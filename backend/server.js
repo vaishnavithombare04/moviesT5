@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import pool from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import genreRoutes from "./routes/genreRoutes.js";
 import { verifyToken, verifyAdmin } from "./middleware/authMiddleware.js";
 
 dotenv.config();
@@ -14,6 +15,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes); 
+app.use("/api/genres", genreRoutes); 
 
 app.get("/", (req, res) => {
     res.send("Movie Management System Backend is Running!");// Test API
@@ -61,4 +63,6 @@ app.get(
 );
 
 
-app.listen(6500);
+app.listen(6500, () => {
+    console.log("Server running on http://localhost:6500");
+});

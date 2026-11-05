@@ -1,0 +1,264 @@
+====================================================================
+MOVIE MANAGEMENT SYSTEM - BACKEND API TESTING PATHS & DOCUMENTATION
+====================================================================
+Base URL: http://localhost:6500
+Database: MySQL (movie_management)
+
+--------------------------------------------------------------------
+PHASE 1: SERVER & AUTHENTICATION ENDPOINTS
+--------------------------------------------------------------------
+
+1. Root Health Check
+   - Method: GET
+   - URL: http://localhost:6500/
+   - Headers: None
+   - Body: None
+   - Expected Response (200 OK):
+     "Movie Management System Backend is Running!"
+
+2. Database Connection Test
+   - Method: GET
+   - URL: http://localhost:6500/api/db-test
+   - Headers: None
+   - Body: None
+   - Expected Response (200 OK):
+     {
+       "success": true,
+       "message": "MySQL connected successfully!",
+       "data": [
+         { "connected": 1 }
+       ]
+     }
+   - Error Case (500 Internal Server Error):
+     {
+       "success": false,
+       "message": "Database connection failed"
+     }
+
+3. User Registration
+   - Method: POST
+   - URL: http://localhost:6500/api/auth/register
+   - Headers:
+     Content-Type: application/json
+   - Request Body:
+     {
+       "full_name": "Test User",
+       "email": "testuser@gmail.com",
+       "password": "Password@123"
+     }
+   - Expected Response (201 Created):
+     {
+       "success": true,
+       "message": "Registration successful",
+       "userId": 3
+     }
+   - Error Cases:
+     * 400 Bad Request (Missing fields):
+       { "success": false, "message": "All fields are required" }
+     * 409 Conflict (Duplicate email):
+       { "success": false, "message": "Email already registered" }
+
+4. User / Admin Login
+   - Method: POST
+   - URL: http://localhost:6500/api/auth/login
+   - Headers:
+     Content-Type: application/json
+   - Request Body (Admin):
+     {
+       "email": "vaish@gmail.com",
+       "password": "YourAdminPassword"
+     }
+   - Request Body (Normal User):
+     {
+       "email": "user1@gmail.com",
+       "password": "YourUserPassword"
+     }
+   - Expected Response (200 OK):
+     {
+       "success": true,
+       "message": "Login successful",
+       "token": "<JWT_TOKEN_STRING>",
+       "user": {
+         "id": 1,
+         "full_name": "Vaish_tho",
+         "email": "vaish@gmail.com",
+         "role": "admin"
+       }
+     }
+   - Error Cases:
+     * 400 Bad Request (Missing email or password):
+       { "success": false, "message": "Email and password are required" }
+     * 401 Unauthorized (Invalid email or password):
+       { "success": false, "message": "Invalid email or password" }
+
+5. Protected Route (Any Authenticated User)
+   - Method: GET
+   - URL: http://localhost:6500/api/protected
+   - Headers:
+     Authorization: Bearer <JWT_TOKEN_STRING>
+   - Body: None
+   - Expected Response (200 OK):
+     {
+       "success": true,
+       "message": "Protected route accessed successfully",
+       "user": {
+         "id": 1,
+         "email": "user1@gmail.com",
+         "role": "user",
+         "iat": 1700000000,
+         "exp": 1700086400
+       }
+     }
+   - Error Cases:
+     * 401 Unauthorized (No token provided):
+       { "success": false, "message": "Access token required" }
+     * 401 Unauthorized (Invalid/tampered token):
+       { "success": false, "message": "Invalid or expired token" }
+
+6. Admin Only Route
+   - Method: GET
+   - URL: http://localhost:6500/api/admin-test
+   - Headers:
+     Authorization: Bearer <ADMIN_JWT_TOKEN_STRING>
+   - Body: None
+   - Expected Response (200 OK - Admin user):
+     {
+       "success": true,
+       "message": "Admin access granted",
+       "user": {
+         "id": 1,
+         "email": "vaish@gmail.com",
+         "role": "admin",
+         "iat": 1700000000,
+         "exp": 1700086400
+       }
+     }
+   - Error Cases:
+     * 403 Forbidden (Normal user token with role 'user'):
+       { "success": false, "message": "Admin access required" }
+     * 401 Unauthorized (Missing or invalid token):
+       { "success": false, "message": "Access token required" }
+
+--------------------------------------------------------------------
+PHASE 2: GENRE MANAGEMENT ENDPOINTS
+--------------------------------------------------------------------
+
+7. Create Genre (Admin Only)
+   - Method: POST
+   - URL: http://localhost:6500/api/genres
+   - Headers:
+     Content-Type: application/json
+     Authorization: Bearer <ADMIN_JWT_TOKEN_STRING>
+   - Request Body:
+     {
+       "name": "Action"
+     }
+   - Expected Response (201 Created):
+     {
+       "success": true,
+       "message": "Genre created successfully",
+       "genre": {
+         "id": 1,
+         "name": "Action"
+       }
+     }
+   - Error Cases:
+     * 400 Bad Request (Missing name):
+       { "success": false, "message": "Genre name is required" }
+     * 409 Conflict (Genre already exists):
+       { "success": false, "message": "Genre already exists" }
+     * 401 Unauthorized (Missing/invalid token):
+       { "success": false, "message": "Access token required" }
+     * 403 Forbidden (Normal user token):
+       { "success": false, "message": "Admin access required" }
+
+8. Get All Genres (Public / User)
+   - Method: GET
+   - URL: http://localhost:6500/api/genres
+   - Headers: None (or Authorization optional)
+   - Body: None
+   - Expected Response (200 OK):
+     {
+       "success": true,
+       "count": 1,
+       "genres": [
+         {
+           "id": 1,
+           "name": "Action",
+           "created_at": "2026-11-05T14:25:00.000Z"
+         }
+       ]
+     }
+
+9. Get Single Genre By ID (Public / User)
+   - Method: GET
+   - URL: http://localhost:6500/api/genres/1
+   - Headers: None
+   - Body: None
+   - Expected Response (200 OK):
+     {
+       "success": true,
+       "genre": {
+         "id": 1,
+         "name": "Action",
+         "created_at": "2026-11-05T14:25:00.000Z"
+       }
+     }
+   - Error Cases:
+     * 400 Bad Request (Invalid non-numeric ID like /api/genres/abc):
+       { "success": false, "message": "Invalid genre ID" }
+     * 404 Not Found (Genre ID does not exist):
+       { "success": false, "message": "Genre not found" }
+
+10. Update Genre (Admin Only)
+    - Method: PUT
+    - URL: http://localhost:6500/api/genres/1
+    - Headers:
+      Content-Type: application/json
+      Authorization: Bearer <ADMIN_JWT_TOKEN_STRING>
+    - Request Body:
+      {
+        "name": "Action & Adventure"
+      }
+    - Expected Response (200 OK):
+      {
+        "success": true,
+        "message": "Genre updated successfully",
+        "genre": {
+          "id": 1,
+          "name": "Action & Adventure"
+        }
+      }
+    - Error Cases:
+      * 400 Bad Request (Missing name):
+        { "success": false, "message": "Genre name is required" }
+      * 404 Not Found (Genre ID does not exist):
+        { "success": false, "message": "Genre not found" }
+      * 409 Conflict (Name already used by another genre):
+        { "success": false, "message": "Genre name already exists" }
+      * 403 Forbidden (Normal user token):
+        { "success": false, "message": "Admin access required" }
+
+11. Delete Genre (Admin Only)
+    - Method: DELETE
+    - URL: http://localhost:6500/api/genres/1
+    - Headers:
+      Authorization: Bearer <ADMIN_JWT_TOKEN_STRING>
+    - Body: None
+    - Expected Response (200 OK):
+      {
+        "success": true,
+        "message": "Genre deleted successfully"
+      }
+    - Error Cases:
+      * 400 Bad Request (Invalid ID):
+        { "success": false, "message": "Invalid genre ID" }
+      * 404 Not Found (Genre not found):
+        { "success": false, "message": "Genre not found" }
+      * 403 Forbidden (Normal user token):
+        { "success": false, "message": "Admin access required" }
+
+====================================================================
+(This document will be updated as new APIs are developed)
+====================================================================
+

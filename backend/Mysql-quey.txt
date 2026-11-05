@@ -1,0 +1,47 @@
+create database movie_management;
+USE movie_management;
+
+create table users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,   /*Passwords as bcrypt hashes, not  text.*/
+    role ENUM('user', 'admin') DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);  -- users
+create table genres (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+); --genres
+
+
+CREATE TABLE movies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    genre_id INT,
+    rating DECIMAL(3,1),
+    duration INT,
+    poster_url TEXT,
+    trailer_url TEXT,
+    description TEXT,
+    release_year YEAR,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (genre_id)
+        REFERENCES genres(id)
+        ON DELETE SET NULL
+); -- movies
+
+-- show tables; 
+desc users;
+desc genres;
+desc movies;
+
+
+--set user to ADMIN
+UPDATE users
+SET role = 'admin'
+WHERE email = 'Email address';

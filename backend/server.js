@@ -11,17 +11,19 @@ dotenv.config();
 
 const app = express();
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
+
+//routes 
 app.use("/api/auth", authRoutes); 
 app.use("/api/genres", genreRoutes); 
 
 app.get("/", (req, res) => {
-    res.send("Movie Management System Backend is Running!");// Test API
+    res.send("Movie Management System Backend is Running!");// Test base API
 });
 
 
+//check database conenction
 app.get("/api/db-test", async (req, res) => {
     try {
         const [rows] = await pool.query("SELECT 1 AS connected");
@@ -50,9 +52,7 @@ app.get("/api/protected", verifyToken, (req, res) => {
 });
 
 app.get(
-  "/api/admin-test",
-  verifyToken,
-  verifyAdmin,
+  "/api/admin-test",verifyToken,verifyAdmin,
   (req, res) => {
     res.json({
       success: true,

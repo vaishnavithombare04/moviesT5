@@ -1,13 +1,11 @@
 import pool from "../config/db.js";
 
-// @desc    Create a new genre
-// @route   POST /api/genres
-// @access  Private (Admin only)
+
 export const createGenre = async (req, res) => {
     try {
         const { name } = req.body;
 
-        // 1. Validate input
+        //  Validate input
         if (!name || !name.trim()) {
             return res.status(400).json({
                 success: false,
@@ -17,7 +15,7 @@ export const createGenre = async (req, res) => {
 
         const trimmedName = name.trim();
 
-        // 2. Check if genre already exists
+        // Check if genre already exists
         const [existing] = await pool.query(
             "SELECT id FROM genres WHERE LOWER(name) = LOWER(?)",
             [trimmedName]
@@ -30,7 +28,7 @@ export const createGenre = async (req, res) => {
             });
         }
 
-        // 3. Insert genre into database
+        //  Insert genre into database
         const [result] = await pool.query(
             "INSERT INTO genres (name) VALUES (?)",
             [trimmedName]
@@ -54,9 +52,7 @@ export const createGenre = async (req, res) => {
     }
 };
 
-// @desc    Get all genres
-// @route   GET /api/genres
-// @access  Public
+
 export const getAllGenres = async (req, res) => {
     try {
         const [genres] = await pool.query(
@@ -118,9 +114,7 @@ export const getGenreById = async (req, res) => {
     }
 };
 
-// @desc    Update a genre
-// @route   PUT /api/genres/:id
-// @access  Private (Admin only)
+
 export const updateGenre = async (req, res) => {
     try {
         const { id } = req.params;
@@ -142,7 +136,7 @@ export const updateGenre = async (req, res) => {
 
         const trimmedName = name.trim();
 
-        // 1. Check if the genre exists
+        //  Check if the genre exists
         const [genre] = await pool.query(
             "SELECT id FROM genres WHERE id = ?",
             [id]
@@ -155,7 +149,7 @@ export const updateGenre = async (req, res) => {
             });
         }
 
-        // 2. Check if another genre already uses this name
+        // Check if  genre already is there
         const [duplicate] = await pool.query(
             "SELECT id FROM genres WHERE LOWER(name) = LOWER(?) AND id != ?",
             [trimmedName, id]
@@ -168,7 +162,7 @@ export const updateGenre = async (req, res) => {
             });
         }
 
-        // 3. Update the genre
+        // Update the genre
         await pool.query(
             "UPDATE genres SET name = ? WHERE id = ?",
             [trimmedName, id]
@@ -192,9 +186,7 @@ export const updateGenre = async (req, res) => {
     }
 };
 
-// @desc    Delete a genre
-// @route   DELETE /api/genres/:id
-// @access  Private (Admin only)
+
 export const deleteGenre = async (req, res) => {
     try {
         const { id } = req.params;
@@ -206,7 +198,7 @@ export const deleteGenre = async (req, res) => {
             });
         }
 
-        // 1. Check if genre exists
+        //  Check if genre exists
         const [genre] = await pool.query(
             "SELECT id FROM genres WHERE id = ?",
             [id]
@@ -219,7 +211,7 @@ export const deleteGenre = async (req, res) => {
             });
         }
 
-        // 2. Delete genre
+        //  Delete genre
         await pool.query(
             "DELETE FROM genres WHERE id = ?",
             [id]

@@ -74,9 +74,7 @@ export const getAllGenres = async (req, res) => {
     }
 };
 
-// @desc    Get a single genre by ID
-// @route   GET /api/genres/:id
-// @access  Public
+
 export const getGenreById = async (req, res) => {
     try {
         const { id } = req.params;

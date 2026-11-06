@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Movies - UI Screen Skeletons & Wireframes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #090d16;
+      color: #f8fafc;
+      margin: 0;
+      padding: 24px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      color: #38bdf8;
+      margin: 0 0 8px 0;
+      font-size: 1.8rem;
+    }
+
+    p.subtitle {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      max-width: 800px;
+      margin: 0 auto 18px auto;
+      line-height: 1.5;
+    }
+
+    /* Screen Tab Switcher */
+    .tab-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+
+    .tab-btn {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      padding: 9px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    .tab-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #3b82f6;
+    }
+
+    .print-btn {
+      background: #059669;
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .print-btn:hover {
+      background: #047857;
+    }
+
+    /* Screen Section Wrappers */
+    .screen-section {
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      color: #38bdf8;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-left: 4px solid #2563eb;
+      padding-left: 12px;
+    }
+
+    .route-badge {
+      font-family: monospace;
+      font-size: 0.8rem;
+      background: #1e293b;
+      color: #a5f3fc;
+      border: 1px solid #0891b2;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Browser Window Container */
+    .mock-browser {
+      background: #111422;
+      border: 1px solid #2d3748;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mock-browser-top {
+      background: #1e2433;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dot-red {
+      background: #ef4444;
+    }
+
+    .dot-yellow {
+      background: #f59e0b;
+    }
+
+    .dot-green {
+      background: #10b981;
+    }
+
+    .address-bar {
+      flex: 1;
+      background: #0b0f19;
+      color: #94a3b8;
+      border-radius: 6px;
+      padding: 5px 14px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      border: 1px solid #334155;
+    }
+
+    /* App Navbar */
+    .mock-nav {
+      background: #1a1e2d;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #2d3748;
+    }
+
+    .mock-brand {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #f43f5e;
+      letter-spacing: 1px;
+    }
+
+    .mock-nav-links {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-size: 0.88rem;
+    }
+
+    .mock-nav-link {
+      color: #cbd5e1;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .mock-nav-link.active {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .badge-admin {
+      background: #f59e0b;
+      color: #0f172a;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.72rem;
+    }
+
+    /* Catalog Layout */
+    .mock-content {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 24px;
+      background: #0b0e17;
+    }
+
+    @media (max-width: 900px) {
+      .mock-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mock-sidebar {
+      background: #131724;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #202738;
+      height: fit-content;
+    }
+
+    .mock-sidebar h4 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .mock-genre-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px 0;
+    }
+
+    .mock-genre-item {
+      padding: 7px 12px;
+      border-radius: 5px;
+      margin-bottom: 4px;
+      color: #94a3b8;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .mock-genre-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .mock-stars {
+      color: #fbbf24;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    .mock-main {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mock-search-box {
+      width: 100%;
+      background: #181d2a;
+      border: 1px solid #334155;
+      padding: 10px 16px;
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 0.95rem;
+    }
+
+    .mock-movie-count {
+      color: #64748b;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .mock-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 18px;
+    }
+
+    /* 3D Flipping Movie Cards */
+    .mock-flip-container {
+      perspective: 1000px;
+      height: 310px;
+      cursor: pointer;
+    }
+
+    .mock-flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .mock-flip-container:hover .mock-flip-inner,
+    .mock-flip-container.flipped .mock-flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .mock-card-front,
+    .mock-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .mock-card-front {
+      background: #161b26;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #2d3748;
+    }
+
+    .mock-poster {
+      height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 2.2rem;
+      position: relative;
+    }
+
+    .mock-rate-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid #eab308;
+      color: #facc15;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .mock-card-info {
+      padding: 10px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .mock-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin: 0 0 4px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mock-card-meta {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin: 0 0 8px 0;
+    }
+
+    .mock-trailer-btn {
+      background: #e11d48;
+      color: white;
+      text-align: center;
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .mock-card-back {
+      background: #161c28;
+      color: #e2e8f0;
+      transform: rotateY(180deg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid #3b4252;
+    }
+
+    .mock-card-back h5 {
+      margin: 0 0 8px 0;
+      color: #38bdf8;
+      font-size: 0.95rem;
+    }
+
+    .mock-card-back p {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #cbd5e1;
+      margin: 0;
+    }
+
+    .mock-flip-hint {
+      font-size: 0.7rem;
+      color: #64748b;
+      text-align: center;
+    }
+
+    .mock-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .mock-page-num {
+      background: #181d2a;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .mock-page-num.active {
+      background: #2563eb;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .mock-footer {
+      background: #111420;
+      text-align: center;
+      padding: 14px;
+      color: #64748b;
+      font-size: 0.85rem;
+      border-top: 1px solid #242c3d;
+    }
+
+    /* =========================================================
+       FORM PAGES & VALIDATION UI STYLING
+       ========================================================= */
+    .form-page-layout {
+      padding: 36px 20px;
+      background: #0b0e17;
+      display: flex;
+      justify-content: center;
+    }
+
+    .val-form-container {
+      width: 100%;
+      max-width: 520px;
+      background: #151a26;
+      border: 1px solid #2b3548;
+      border-radius: 10px;
+      padding: 28px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .val-form-title {
+      color: #f8fafc;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 22px;
+      text-align: center;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 10px;
+    }
+
+    .val-input-group {
+      margin-bottom: 18px;
+    }
+
+    .val-label {
+      display: block;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .val-input-wrapper {
+      position: relative;
+    }
+
+    .val-input-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .val-input {
+      width: 100%;
+      background: #1e2536;
+      border: 1px solid #475569;
+      color: #ffffff;
+      padding: 10px 14px 10px 38px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .val-input.has-error {
+      border-color: #ef4444;
+      background: #24141d;
+    }
+
+    .val-input.is-valid {
+      border-color: #10b981;
+      background: #0e2019;
+    }
+
+    .val-alert-danger {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      padding: 7px 12px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .val-btn {
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 11px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    .val-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .val-btn.disabled {
+      background: #334155;
+      color: #94a3b8;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .val-hint-text {
+      font-size: 0.75rem;
+      color: #64748b;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        color: #000000;
+        padding: 0;
+      }
+
+      .tab-bar {
+        display: none !important;
+      }
+
+      .screen-section {
+        display: block !important;
+        page-break-after: always;
+      }
+
+      .mock-browser {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎬 Movies - UI Screen Skeletons</h1>
+    <p class="subtitle">
+      Pixel-accurate interactive UI mockups showing the exact look, component layout, and Joi validation states of the
+      running web application.
+    </p>
+
+    <!-- Navigation Tab Bar -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showScreen('screen-all')">👁️ Show All Screens</button>
+      <button class="tab-btn" onclick="showScreen('screen-home')">🏠 Home Page (/movies)</button>
+      <button class="tab-btn" onclick="showScreen('screen-login')">🔑 Login Page (/login)</button>
+      <button class="tab-btn" onclick="showScreen('screen-register')">📝 Register Page (/register)</button>
+      <button class="tab-btn" onclick="showScreen('screen-addmovie')">🎬 Add Movie (Admin)</button>
+      <button class="tab-btn" onclick="showScreen('screen-addgenre')">🏷️ Add Genre (Admin)</button>
+    </div>
+  </header>
+
+  <!-- ==================== SCREEN 1: HOME PAGE ==================== -->
+  <div id="screen-home" class="screen-section">
+    <div class="section-title">
+      <span>1. Home Page — Movie Catalog & Filtering</span>
+
+    </div>
+
+    <div class="mock-browser">
+      <div class="mock-browser-top">
+        <div class="window-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="address-bar">http://localhost:3000/movies</div>
+      </div>
+
+      <div class="mock-nav">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span style="font-size: 1.3rem; cursor: pointer; color: #94a3b8;">☰</span>
+          <span class="mock-brand">Movies</span>
+        </div>
+        <div class="mock-nav-links">
+          <span class="mock-nav-link active">Home</span>
+          <span class="mock-nav-link">Add Movie</span>
+          <span class="mock-nav-link">Add Genre</span>
+          <span class="badge-admin">Admin: admin@gmail.com</span>
+          <span class="mock-nav-link" style="color: #f87171;">Log out</span>
+        </div>
+      </div>
+
+      <div class="mock-content">
+        <!-- Sidebar -->
+        <div class="mock-sidebar">
+          <h4>Filters</h4>
+          <ul class="mock-genre-list">
+            <li class="mock-genre-item active"><span>All</span> <span>10</span></li>
+            <li class="mock-genre-item"><span>Action</span> <span>3</span></li>
+            <li class="mock-genre-item"><span>Crime</span> <span>2</span></li>
+            <li class="mock-genre-item"><span>Drama</span> <span>4</span></li>
+            <li class="mock-genre-item"><span>Sci-Fi</span> <span>1</span></li>
+            <li class="mock-genre-item"><span>Horror</span> <span>0</span></li>
+          </ul>
+
+          <h4>Rating</h4>
+          <div class="mock-stars">★★★★★★★★☆☆</div>
+          <small style="color: #64748b; font-size: 0.75rem;">Filtered: 8.0+ Rating</small>
+        </div>
+
+        <!-- Main Catalog -->
+        <div class="mock-main">
+          <input type="text" class="mock-search-box" value="" placeholder="Search movie..." readonly>
+          <p class="mock-movie-count">3 movies found.</p>
+
+          <!-- Grid of 3D Flipping Cards -->
+          <div class="mock-cards-grid">
+
+            <!-- Card 1 -->
+            <div class="mock-flip-container" onclick="this.classList.toggle('flipped')">
+              <div class="mock-flip-inner">
+                <div class="mock-card-front">
+                  <div class="mock-poster" style="background: linear-gradient(135deg, #1e3a8a, #0f172a);">
+                    🦇
+                    <span class="mock-rate-badge">★ 9.0</span>
+                  </div>
+                  <div class="mock-card-info">
+                    <div>
+                      <h4 class="mock-card-title">The Dark Knight</h4>
+                      <p class="mock-card-meta">152 min / Action, Crime, Drama</p>
+                    </div>
+                    <div class="mock-trailer-btn">Watch Trailer ▶</div>
+                  </div>
+                </div>
+                <div class="mock-card-back">
+                  <div>
+                    <h5>The Dark Knight</h5>
+                    <p>When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must
+                      accept one of the greatest psychological tests of his ability to fight injustice.</p>
+                  </div>
+                  <div class="mock-flip-hint">⟲ Click card to flip</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="mock-flip-container" onclick="this.classList.toggle('flipped')">
+              <div class="mock-flip-inner">
+                <div class="mock-card-front">
+                  <div class="mock-poster" style="background: linear-gradient(135deg, #701a75, #1e1b4b);">
+                    ⛓️
+                    <span class="mock-rate-badge">★ 9.3</span>
+                  </div>
+                  <div class="mock-card-info">
+                    <div>
+                      <h4 class="mock-card-title">The Shawshank Redemption</h4>
+                      <p class="mock-card-meta">142 min / Drama</p>
+                    </div>
+                    <div class="mock-trailer-btn">Watch Trailer ▶</div>
+                  </div>
+                </div>
+                <div class="mock-card-back">
+                  <div>
+                    <h5>The Shawshank Redemption</h5>
+                    <p>Two imprisoned men bond over a number of years, finding solace and eventual redemption through
+                      acts of common decency.</p>
+                  </div>
+                  <div class="mock-flip-hint">⟲ Click card to flip</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="mock-flip-container" onclick="this.classList.toggle('flipped')">
+              <div class="mock-flip-inner">
+                <div class="mock-card-front">
+                  <div class="mock-poster" style="background: linear-gradient(135deg, #831843, #31102b);">
+                    🌹
+                    <span class="mock-rate-badge">★ 9.2</span>
+                  </div>
+                  <div class="mock-card-info">
+                    <div>
+                      <h4 class="mock-card-title">The Godfather</h4>
+                      <p class="mock-card-meta">175 min / Crime, Drama</p>
+                    </div>
+                    <div class="mock-trailer-btn">Watch Trailer ▶</div>
+                  </div>
+                </div>
+                <div class="mock-card-back">
+                  <div>
+                    <h5>The Godfather</h5>
+                    <p>The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to
+                      his reluctant son.</p>
+                  </div>
+                  <div class="mock-flip-hint">⟲ Click card to flip</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Pagination -->
+          <div class="mock-pagination">
+            <span class="mock-page-num active">1</span>
+            <span class="mock-page-num">2</span>
+            <span class="mock-page-num">Next ›</span>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 2: LOGIN VALIDATION ==================== -->
+  <div id="screen-login" class="screen-section">
+    <div class="section-title">
+      <span>2. Login Page — Form & Joi Client Validation</span>
+    </div>
+
+    <div class="mock-browser">
+      <div class="mock-browser-top">
+        <div class="window-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="address-bar">http://localhost:3000/login</div>
+      </div>
+
+      <div class="mock-nav">
+        <span class="mock-brand">Movies</span>
+        <div class="mock-nav-links">
+          <span class="mock-nav-link">Home</span>
+          <span class="mock-nav-link active">Login</span>
+          <span class="mock-nav-link">Register</span>
+        </div>
+      </div>
+
+      <div class="form-page-layout">
+        <div class="val-form-container">
+          <h2 class="val-form-title">Login</h2>
+
+          <div class="val-input-group">
+            <label class="val-label">Email</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">✉️</span>
+              <input type="text" class="val-input has-error" value="invalid-email" readonly>
+            </div>
+            <div class="val-alert-danger">
+              ⚠️ "Email" must be a valid email
+            </div>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Password</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">🔒</span>
+              <input type="password" class="val-input has-error" value="" placeholder="Please enter your password..."
+                readonly>
+            </div>
+            <div class="val-alert-danger">
+              ⚠️ "Password" is not allowed to be empty
+            </div>
+          </div>
+
+          <button class="val-btn disabled" disabled>Login</button>
+          <p class="val-hint-text">
+            Button automatically disabled while <code>validate()</code> has errors.
+          </p>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 3: REGISTER VALIDATION ==================== -->
+  <div id="screen-register" class="screen-section">
+    <div class="section-title">
+      <span>3. Register Page — Password Length & Match Validation</span>
+    </div>
+
+    <div class="mock-browser">
+      <div class="mock-browser-top">
+        <div class="window-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="address-bar">http://localhost:3000/register</div>
+      </div>
+
+      <div class="mock-nav">
+        <span class="mock-brand">Movies</span>
+        <div class="mock-nav-links">
+          <span class="mock-nav-link">Home</span>
+          <span class="mock-nav-link">Login</span>
+          <span class="mock-nav-link active">Register</span>
+        </div>
+      </div>
+
+      <div class="form-page-layout">
+        <div class="val-form-container">
+          <h2 class="val-form-title">Register Form</h2>
+
+          <div class="val-input-group">
+            <label class="val-label">Email</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">✉️</span>
+              <input type="text" class="val-input is-valid" value="newuser@gmail.com" readonly>
+            </div>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Password</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">🔒</span>
+              <input type="password" class="val-input has-error" value="12345" readonly>
+            </div>
+            <div class="val-alert-danger">
+              ⚠️ "Password" length must be at least 8 characters long
+            </div>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Repeat Password</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">🔒</span>
+              <input type="password" class="val-input has-error" value="differentPass" readonly>
+            </div>
+            <div class="val-alert-danger">
+              ⚠️ The passwords do not match.
+            </div>
+          </div>
+
+          <button class="val-btn disabled" disabled>Register</button>
+          <p class="val-hint-text">
+            Validates email structure, 8+ character password, and confirmation match.
+          </p>
+        </div>
+      </div>
+
+     
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 4: ADD MOVIE (ADMIN) ==================== -->
+  <div id="screen-addmovie" class="screen-section">
+    <div class="section-title">
+      <span>4. Add Movie Page — Admin Upload & Schema Validation</span>
+    </div>
+
+    <div class="mock-browser">
+      <div class="mock-browser-top">
+        <div class="window-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="address-bar">http://localhost:3000/movies/new</div>
+      </div>
+
+      <div class="mock-nav">
+        <span class="mock-brand">Movies</span>
+        <div class="mock-nav-links">
+          <span class="mock-nav-link">Home</span>
+          <span class="mock-nav-link active">Add Movie</span>
+          <span class="mock-nav-link">Add Genre</span>
+          <span class="badge-admin">Admin</span>
+        </div>
+      </div>
+
+      <div class="form-page-layout">
+        <div class="val-form-container" style="max-width: 600px;">
+          <h2 class="val-form-title">Add New Movie</h2>
+
+          <div class="val-input-group">
+            <label class="val-label">Title</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">🎬</span>
+              <input type="text" class="val-input has-error" value="" placeholder="e.g. Inception" readonly>
+            </div>
+            <div class="val-alert-danger">
+              ⚠️ "Title" is required
+            </div>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Genre</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">📂</span>
+              <select class="val-input is-valid" disabled>
+                <option selected>Sci-Fi</option>
+                <option>Action</option>
+                <option>Drama</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Rating (0 - 10)</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">⭐</span>
+              <input type="text" class="val-input has-error" value="12" readonly>
+            </div>
+            <div class="val-alert-danger">
+              ⚠️ "Rating" must be less than or equal to 10
+            </div>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Movie Length (Runtime)</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">⏱️</span>
+              <input type="text" class="val-input has-error" value="" placeholder="e.g. 148 min" readonly>
+            </div>
+            <div class="val-alert-danger">
+              ⚠️ "Movie length" is required
+            </div>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Movie Poster Image (File Upload)</label>
+            <input type="file" class="val-input" style="padding: 7px 12px;" disabled>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Trailer Link (YouTube)</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">🔗</span>
+              <input type="text" class="val-input is-valid" value="https://www.youtube.com/watch?v=YoHD9XEInc0"
+                readonly>
+            </div>
+          </div>
+
+          <div class="val-input-group">
+            <label class="val-label">Description (Synopsis)</label>
+            <textarea class="val-input" style="height: 80px; padding: 10px;"
+              readonly>A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea...</textarea>
+          </div>
+
+          <button class="val-btn disabled" disabled>Save Movie</button>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <!-- ==================== SCREEN 5: ADD GENRE (ADMIN) ==================== -->
+  <div id="screen-addgenre" class="screen-section">
+    <div class="section-title">
+      <span>5. Add Genre Page — Category Management</span>
+    </div>
+
+    <div class="mock-browser">
+      <div class="mock-browser-top">
+        <div class="window-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="address-bar">http://localhost:3000/genres/new</div>
+      </div>
+
+      <div class="mock-nav">
+        <span class="mock-brand">Movies</span>
+        <div class="mock-nav-links">
+          <span class="mock-nav-link">Home</span>
+          <span class="mock-nav-link">Add Movie</span>
+          <span class="mock-nav-link active">Add Genre</span>
+          <span class="badge-admin">Admin</span>
+        </div>
+      </div>
+
+      <div class="form-page-layout">
+        <div class="val-form-container">
+          <h2 class="val-form-title">Add New Genre</h2>
+
+          <div class="val-input-group">
+            <label class="val-label">Genre Name</label>
+            <div class="val-input-wrapper">
+              <span class="val-input-icon">🏷️</span>
+              <input type="text" class="val-input has-error" value="" placeholder="e.g. Documentary" readonly>
+            </div>
+            <div class="val-alert-danger">
+              ⚠️ "Genre" is required
+            </div>
+          </div>
+
+          <button class="val-btn disabled" disabled>Save Genre</button>
+        </div>
+      </div>
+
+  
+    </div>
+  </div>
+
+  <script>
+    function showScreen(screenId) {
+      const sections = document.querySelectorAll('.screen-section');
+      const tabs = document.querySelectorAll('.tab-btn');
+
+      // Update tab active styling
+      tabs.forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+
+      if (screenId === 'screen-all') {
+        sections.forEach(sec => sec.style.display = 'block');
+      } else {
+        sections.forEach(sec => {
+          if (sec.id === screenId) {
+            sec.style.display = 'block';
+            sec.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            sec.style.display = 'none';
+          }
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>

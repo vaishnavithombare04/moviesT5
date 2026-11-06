@@ -258,6 +258,57 @@ PHASE 2: GENRE MANAGEMENT ENDPOINTS
       * 403 Forbidden (Normal user token):
         { "success": false, "message": "Admin access required" }
 
+--------------------------------------------------------------------
+PHASE 3: MOVIE MANAGEMENT ENDPOINTS
+--------------------------------------------------------------------
+
+12. Add Movie (Admin Only)
+    - Method: POST
+    - URL: http://localhost:6500/api/movies
+    - Headers:
+      Content-Type: application/json
+      Authorization: Bearer <ADMIN_JWT_TOKEN_STRING>
+    - Request Body:
+      {
+        "title": "Inception",
+        "genre_id": 1,
+        "rating": 8.8,
+        "duration": 148,
+        "poster_url": "https://example.com/poster.jpg",
+        "trailer_url": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+        "description": "A thief who steals corporate secrets through the use of dream-sharing technology.",
+        "release_year": 2010
+      }
+    - Expected Response (201 Created):
+      {
+        "success": true,
+        "message": "Movie added successfully",
+        "movie": {
+          "id": 1,
+          "title": "Inception",
+          "genre_id": 1,
+          "rating": 8.8,
+          "duration": 148,
+          "poster_url": "https://example.com/poster.jpg",
+          "trailer_url": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+          "description": "A thief who steals corporate secrets through the use of dream-sharing technology.",
+          "release_year": 2010
+        }
+      }
+    - Error Cases:
+      * 400 Bad Request (Missing required fields):
+        { "success": false, "message": "Title, poster_url, and trailer_url are required" }
+      * 400 Bad Request (Genre ID does not exist):
+        { "success": false, "message": "Invalid genre_id: Specified genre does not exist" }
+      * 400 Bad Request (Rating out of range 0-10):
+        { "success": false, "message": "Rating must be a number between 0 and 10" }
+      * 409 Conflict (Duplicate movie title):
+        { "success": false, "message": "Movie already exists" }
+      * 401 Unauthorized (Missing or invalid token):
+        { "success": false, "message": "Access token required" }
+      * 403 Forbidden (Normal user token):
+        { "success": false, "message": "Admin access required" }
+
 ====================================================================
 (This document will be updated as new APIs are developed)
 ====================================================================

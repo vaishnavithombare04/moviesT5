@@ -5,25 +5,29 @@ import dotenv from "dotenv";
 import pool from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import genreRoutes from "./routes/genreRoutes.js";
+import movieRoutes from "./routes/movieRoutes.js";
+
 import { verifyToken, verifyAdmin } from "./middleware/authMiddleware.js";
 
 dotenv.config();
 
 const app = express();
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
-
-//routes 
 app.use("/api/auth", authRoutes); 
 app.use("/api/genres", genreRoutes); 
+app.use("/api/movies", movieRoutes);
+app.get("/test", (req, res) => {
+    res.send("Test route working");
+});
 
 app.get("/", (req, res) => {
-    res.send("Movie Management System Backend is Running!");// Test base API
+    res.send("Movie Management System Backend is Running!");// Test API
 });
 
 
-//check database conenction
 app.get("/api/db-test", async (req, res) => {
     try {
         const [rows] = await pool.query("SELECT 1 AS connected");
@@ -52,7 +56,9 @@ app.get("/api/protected", verifyToken, (req, res) => {
 });
 
 app.get(
-  "/api/admin-test",verifyToken,verifyAdmin,
+  "/api/admin-test",
+  verifyToken,
+  verifyAdmin,
   (req, res) => {
     res.json({
       success: true,

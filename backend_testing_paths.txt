@@ -309,6 +309,77 @@ PHASE 3: MOVIE MANAGEMENT ENDPOINTS
       * 403 Forbidden (Normal user token):
         { "success": false, "message": "Admin access required" }
 
+13. Get All Movies (Public - Search, Filter, Pagination, Sorting)
+    - Method: GET
+    - URL: http://localhost:6500/api/movies
+    - Optional Query Parameters:
+      * search: Filter by movie title substring (e.g. ?search=inception)
+      * genre_id: Filter by genre ID (e.g. ?genre_id=1)
+      * sort_by: Sort field ('title', 'rating', 'duration', 'release_year', 'created_at') (default: created_at)
+      * order: Sort direction ('ASC' or 'DESC') (default: DESC)
+      * page: Page number (default: 1)
+      * limit: Results per page (default: 10)
+    - Examples:
+      * Base: http://localhost:6500/api/movies
+      * Search: http://localhost:6500/api/movies?search=ram
+      * Filter by genre: http://localhost:6500/api/movies?genre_id=1
+      * Pagination & Sorting: http://localhost:6500/api/movies?sort_by=rating&order=DESC&page=1&limit=5
+    - Headers: None
+    - Body: None
+    - Expected Response (200 OK):
+      {
+        "success": true,
+        "total": 1,
+        "page": 1,
+        "totalPages": 1,
+        "limit": 10,
+        "movies": [
+          {
+            "id": 1,
+            "title": "Inception",
+            "genre_id": 1,
+            "genre_name": "Action",
+            "rating": "8.8",
+            "duration": 148,
+            "poster_url": "https://example.com/poster.jpg",
+            "trailer_url": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+            "description": "A thief who steals corporate secrets through dream-sharing technology.",
+            "release_year": 2010,
+            "created_at": "...",
+            "updated_at": "..."
+          }
+        ]
+      }
+
+14. Get Single Movie By ID (Public)
+    - Method: GET
+    - URL: http://localhost:6500/api/movies/1
+    - Headers: None
+    - Body: None
+    - Expected Response (200 OK):
+      {
+        "success": true,
+        "movie": {
+          "id": 1,
+          "title": "Inception",
+          "genre_id": 1,
+          "genre_name": "Action",
+          "rating": "8.8",
+          "duration": 148,
+          "poster_url": "https://example.com/poster.jpg",
+          "trailer_url": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+          "description": "A thief who steals corporate secrets through dream-sharing technology.",
+          "release_year": 2010,
+          "created_at": "...",
+          "updated_at": "..."
+        }
+      }
+    - Error Cases:
+      * 400 Bad Request (Invalid non-numeric ID like /api/movies/abc):
+        { "success": false, "message": "Invalid movie ID" }
+      * 404 Not Found (Movie ID does not exist):
+        { "success": false, "message": "Movie not found" }
+
 ====================================================================
 (This document will be updated as new APIs are developed)
 ====================================================================

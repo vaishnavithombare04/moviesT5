@@ -380,6 +380,72 @@ PHASE 3: MOVIE MANAGEMENT ENDPOINTS
       * 404 Not Found (Movie ID does not exist):
         { "success": false, "message": "Movie not found" }
 
+15. Update Movie (Admin Only)
+    - Method: PUT
+    - URL: http://localhost:6500/api/movies/1
+    - Headers:
+      Content-Type: application/json
+      Authorization: Bearer <ADMIN_JWT_TOKEN_STRING>
+    - Request Body:
+      {
+        "title": "Inception (Remastered)",
+        "genre_id": 1,
+        "rating": 9.0,
+        "duration": 148,
+        "poster_url": "https://example.com/inception_updated.jpg",
+        "trailer_url": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+        "description": "Updated description for the classic film.",
+        "release_year": 2010
+      }
+    - Expected Response (200 OK):
+      {
+        "success": true,
+        "message": "Movie updated successfully",
+        "movie": {
+          "id": 1,
+          "title": "Inception (Remastered)",
+          "genre_id": 1,
+          "rating": 9.0,
+          "duration": 148,
+          "poster_url": "https://example.com/inception_updated.jpg",
+          "trailer_url": "https://www.youtube.com/watch?v=YoHD9XEInc0",
+          "description": "Updated description for the classic film.",
+          "release_year": 2010
+        }
+      }
+    - Error Cases:
+      * 400 Bad Request (Invalid ID):
+        { "success": false, "message": "Invalid movie ID" }
+      * 400 Bad Request (Missing required fields):
+        { "success": false, "message": "Title, poster_url, and trailer_url are required" }
+      * 400 Bad Request (Non-existent genre_id):
+        { "success": false, "message": "Invalid genre_id: Specified genre does not exist" }
+      * 404 Not Found (Movie ID does not exist):
+        { "success": false, "message": "Movie not found" }
+      * 409 Conflict (Title already used by another movie):
+        { "success": false, "message": "Movie title already in use by another movie" }
+      * 403 Forbidden (Normal user token):
+        { "success": false, "message": "Admin access required" }
+
+16. Delete Movie (Admin Only)
+    - Method: DELETE
+    - URL: http://localhost:6500/api/movies/1
+    - Headers:
+      Authorization: Bearer <ADMIN_JWT_TOKEN_STRING>
+    - Body: None
+    - Expected Response (200 OK):
+      {
+        "success": true,
+        "message": "Movie deleted successfully"
+      }
+    - Error Cases:
+      * 400 Bad Request (Invalid movie ID):
+        { "success": false, "message": "Invalid movie ID" }
+      * 404 Not Found (Movie ID does not exist):
+        { "success": false, "message": "Movie not found" }
+      * 403 Forbidden (Normal user token):
+        { "success": false, "message": "Admin access required" }
+
 ====================================================================
 (This document will be updated as new APIs are developed)
 ====================================================================

@@ -204,3 +204,175 @@ export const getMovieById = async (req, res) => {
 };
 
 
+
+export const updateMovie = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const {
+            title,
+            genre_id,
+            rating,
+            duration,
+            poster_url,
+            trailer_url,
+            description,
+            release_year
+        } = req.body;
+
+        // Validate id
+        if (isNaN(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid movie ID"
+            });
+        }
+
+        //required fields
+        if (!title || !title.trim() || !poster_url || !trailer_url) {
+            return res.status(400).json({
+                success: false,
+                message: "Title, poster_url, and trailer_url are required"
+            });
+        }
+
+        const trimTitle = title.trim();
+
+        //check if movie exists
+        const [existingMovie] = await pool.query(
+            "SELECT id FROM movies WHERE id = ?",
+            [id]
+        );
+
+        if (existingMovie.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Movie not found"
+            });
+        }
+
+        //check if title is already used by another movie
+        const [duplicateTitle] = await pool.query(
+            "SELECT id FROM movies WHERE LOWER(title) = LOWER(?) AND id != ?",
+            [trimTitle, id]
+        );
+
+        if (duplicateTitle.length > 0) {
+            return res.status(409).json({
+                success: false,
+                message: "Movie title already in use by another movie"
+            });
+        }
+
+        //check if genre id exists
+        if (genre_id) {
+            const [genreExists] = await pool.query(
+                "SELECT id FROM genres WHERE id = ?",
+                [genre_id]
+            );
+
+            if (genreExists.length === 0) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid genre_id: Specified genre does not exist"
+                });
+            }
+        }
+
+        //Validate rating if provided
+        if (rating !== undefined && rating !== null && rating !== "") {
+            const numRating = Number(rating);
+            if (isNaN(numRating) || numRating < 0 || numRating > 10) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Rating must be a number between 0 and 10"
+                });
+            }
+        }
+
+        //update movie in database
+        await pool.query(
+            `UPDATE movies 
+             SET title = ?, genre_id = ?, rating = ?, duration = ?, poster_url = ?, trailer_url = ?, description = ?, release_year = ? WHERE id = ?`,
+            [
+                trimTitle,
+                genre_id || null,
+                rating || null,
+                duration || null,
+                poster_url,
+                trailer_url,
+                description || null,
+                release_year || null,
+                id
+            ]
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Movie updated successfully",
+            movie: {
+                id: Number(id),
+                title: trimTitle,
+                genre_id: genre_id || null,
+                rating: rating || null,
+                duration: duration || null,
+                poster_url,
+                trailer_url,
+                description: description || null,
+                release_year: release_year || null
+            }
+        });
+
+    } catch (error) {
+        console.error("Update Movie Error:", error.message);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
+
+
+
+export const deleteMovie = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Validate ID
+        if (isNaN(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid movie ID"
+            });
+        }
+
+        // check if movie exists
+        const [movie] = await pool.query(
+            "SELECT id FROM movies WHERE id = ?",
+            [id]
+        );
+
+        if (movie.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Movie not found"
+            });
+        }
+
+        // delete movie from database
+        await pool.query("DELETE FROM movies WHERE id = ?", [id]);
+
+        res.status(200).json({
+            success: true,
+            message: "Movie deleted successfully"
+        });
+
+    } catch (error) {
+        console.error("Delete Movie Error:", error.message);
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
+
+

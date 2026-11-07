@@ -56,9 +56,7 @@ app.get("/api/protected", verifyToken, (req, res) => {
 });
 
 app.get(
-  "/api/admin-test",
-  verifyToken,
-  verifyAdmin,
+  "/api/admin-test",verifyToken,verifyAdmin,
   (req, res) => {
     res.json({
       success: true,

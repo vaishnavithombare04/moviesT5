@@ -291,8 +291,7 @@ export const updateMovie = async (req, res) => {
 
         //update movie in database
         await pool.query(
-            `UPDATE movies 
-             SET title = ?, genre_id = ?, rating = ?, duration = ?, poster_url = ?, trailer_url = ?, description = ?, release_year = ? WHERE id = ?`,
+            `UPDATE movies SET title = ?, genre_id = ?, rating = ?, duration = ?, poster_url = ?, trailer_url = ?, description = ?, release_year = ? WHERE id = ?`,
             [
                 trimTitle,
                 genre_id || null,

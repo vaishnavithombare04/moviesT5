@@ -63,7 +63,7 @@ const LoginPage = () => {
 
     try {
       const response = await authAPI.login(formData);
-      // Save auth in Context and localStorage
+      // Save auth 
       login(response.user, response.token);
       navigate("/");
     } catch (err) {

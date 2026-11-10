@@ -15,7 +15,6 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          {/* Unauthenticated Routes (Redirects to Home if already logged in) */}
           <Route
             path="/login"
             element={
@@ -33,7 +32,6 @@ function App() {
             }
           />
 
-          {/* Authenticated User / Admin Home Catalog (Redirects to Login if not authenticated) */}
           <Route
             path="/"
             element={

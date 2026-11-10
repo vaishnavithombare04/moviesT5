@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user and token exist in localStorage on initial page load
+    // Check if user and token exist
     const savedToken = localStorage.getItem("token");
     const savedUser = localStorage.getItem("user");
 

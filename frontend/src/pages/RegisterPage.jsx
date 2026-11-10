@@ -23,7 +23,7 @@ const RegisterPage = () => {
 
   const navigate = useNavigate();
 
-  // Validate fields matching Screen 3 of flowcharts.html
+  // Validate fields
   const getErrors = () => {
     const errs = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

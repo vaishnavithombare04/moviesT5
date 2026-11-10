@@ -156,7 +156,7 @@ const HomePage = () => {
 
   return (
     <div className="catalog-content">
-      {/* ================= EDIT MOVIE MODAL ================= */}
+      {/* edit movie */}
       {editingMovie && (
         <EditMovieModal
           movie={editingMovie}
@@ -170,7 +170,7 @@ const HomePage = () => {
         />
       )}
 
-      {/* ================= SIDEBAR FILTERS ================= */}
+      {/* sidebar */}
       <aside className="catalog-sidebar">
         <h4>Filters</h4>
         <ul className="genre-filter-list">
@@ -242,7 +242,7 @@ const HomePage = () => {
         )}
       </aside>
 
-      {/* ================= MAIN CATALOG ================= */}
+      {/* main grid */}
       <main className="main-catalog">
         {/* Search Box */}
         <input
@@ -303,7 +303,7 @@ const HomePage = () => {
           </div>
         )}
 
-        {/* 3D Flipping Cards Grid (Flips ONLY when clicked) */}
+        {/* cards */}
         <div className="cards-grid">
           {movies.map((movie) => {
             const isFlipped = !!flippedCards[movie.id];
@@ -316,7 +316,7 @@ const HomePage = () => {
                 title="Click card to flip"
               >
                 <div className="flip-card-inner">
-                  {/* FRONT FACE */}
+                  {/* movie det */}
                   <div className="card-front">
                     <div className="movie-poster-box">
                       {movie.poster_url ? (
@@ -348,7 +348,7 @@ const HomePage = () => {
                         </p>
                       </div>
 
-                      {/* Watch Trailer Button: Opens trailer, DOES NOT flip card */}
+                      {/* trailer button*/}
                       {movie.trailer_url && (
                         <a
                           href={movie.trailer_url}
@@ -361,7 +361,7 @@ const HomePage = () => {
                         </a>
                       )}
 
-                      {/* Admin Actions: Edit & Delete Buttons (Visible ONLY to Admin) */}
+                      {/* admin buttons */}
                       {isAdmin && (
                         <div className="card-admin-actions">
                           <button
@@ -388,7 +388,7 @@ const HomePage = () => {
                     </div>
                   </div>
 
-                  {/* BACK FACE */}
+                  {/* movie desc */}
                   <div className="card-back">
                     <div>
                       <h5>{movie.title}</h5>
@@ -398,7 +398,6 @@ const HomePage = () => {
                     </div>
 
                     <div>
-                      {/* Admin actions also accessible on the back face */}
                       {isAdmin && (
                         <div className="card-admin-actions" style={{ marginBottom: "8px" }}>
                           <button
@@ -429,7 +428,7 @@ const HomePage = () => {
           })}
         </div>
 
-        {/* ================= PAGINATION BAR ================= */}
+        {/* pagination */}
         {totalPages > 1 && (
           <div className="pagination-bar">
             <button

@@ -39,7 +39,6 @@ const AddMoviePage = () => {
     fetchGenres();
   }, []);
 
-  // Validation matching Screen 4 of flowcharts.html
   const getErrors = () => {
     const errs = {};
 
@@ -228,7 +227,7 @@ const AddMoviePage = () => {
             )}
           </div>
 
-          {/* Movie Length (Runtime) */}
+          {/* Movie Length  */}
           <div className="val-input-group">
             <label className="val-label">Movie Length (Runtime in mins)</label>
             <div className="val-input-wrapper">
@@ -307,7 +306,7 @@ const AddMoviePage = () => {
             )}
           </div>
 
-          {/* Description (Synopsis) */}
+          {/* Description  */}
           <div className="val-input-group">
             <label className="val-label">Description (Synopsis)</label>
             <textarea

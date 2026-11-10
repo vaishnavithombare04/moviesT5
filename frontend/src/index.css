@@ -1,6 +1,3 @@
-/* =========================================================
-   GLOBAL RESET & THEME (From flowcharts.html)
-   ========================================================= */
 * {
   box-sizing: border-box;
 }
@@ -14,9 +11,7 @@ body {
   min-height: 100vh;
 }
 
-/* =========================================================
-   APP NAVBAR
-   ========================================================= */
+/* navbar*/
 .app-nav {
   background: #1a1e2d;
   padding: 14px 28px;
@@ -92,9 +87,7 @@ body {
   color: #ffffff;
 }
 
-/* =========================================================
-   FORM PAGES & VALIDATION UI (Login, Register, Add Movie/Genre)
-   ========================================================= */
+/* form and validation ui */
 .form-page-layout {
   padding: 40px 20px;
   background: #0b0e17;
@@ -233,9 +226,7 @@ body {
   text-decoration: underline;
 }
 
-/* =========================================================
-   MOVIE CATALOG LAYOUT (Screen 1)
-   ========================================================= */
+/* movie grid */
 .catalog-content {
   padding: 24px;
   display: grid;
@@ -338,9 +329,7 @@ body {
   gap: 18px;
 }
 
-/* =========================================================
-   3D FLIPPING MOVIE CARDS (From flowcharts.html)
-   ========================================================= */
+/* movie cards */
 .flip-card-container {
   perspective: 1000px;
   height: 320px;
@@ -357,7 +346,7 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Flip ONLY on click (when .is-flipped is added) - no auto flip on hover */
+/* flip card  */
 .flip-card-container.is-flipped .flip-card-inner {
   transform: rotateY(180deg);
 }
@@ -483,9 +472,7 @@ body {
   text-align: center;
 }
 
-/* =========================================================
-   PAGINATION
-   ========================================================= */
+/* pagination */
 .pagination-bar {
   display: flex;
   justify-content: center;
@@ -520,9 +507,7 @@ body {
   cursor: not-allowed;
 }
 
-/* =========================================================
-   ADMIN ACTIONS ON CARDS & MODAL
-   ========================================================= */
+/* admin acts on card */
 .card-admin-actions {
   display: flex;
   gap: 8px;

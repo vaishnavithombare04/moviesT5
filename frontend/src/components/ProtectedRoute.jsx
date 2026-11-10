@@ -14,12 +14,12 @@ export const ProtectedRoute = ({ children, adminOnly = false }) => {
     );
   }
 
-  // Not logged in -> Redirect to login page
+  // Not logged in -> Redirect to login
   if (!user) {
     return <Navigate to="/login" replace />;
   }
 
-  // Requires admin, but user is not admin -> Redirect to home
+  // Requires admin but user is not admin -> Redirect to home
   if (adminOnly && !isAdmin) {
     return <Navigate to="/" replace />;
   }
@@ -27,7 +27,7 @@ export const ProtectedRoute = ({ children, adminOnly = false }) => {
   return children;
 };
 
-// Guard for routes that should only be accessible when NOT logged in (e.g. /login, /register)
+// Guard for routes that should only be accessible when NOT logged in
 export const PublicOnlyRoute = ({ children }) => {
   const { user, loading } = useAuth();
 

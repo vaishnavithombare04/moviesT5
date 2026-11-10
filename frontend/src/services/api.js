@@ -1,6 +1,5 @@
 const BASE_URL = "http://localhost:6500/api";
 
-// Helper for making API calls with JWT token automatically attached
 export const apiRequest = async (endpoint, options = {}) => {
   const token = localStorage.getItem("token");
 

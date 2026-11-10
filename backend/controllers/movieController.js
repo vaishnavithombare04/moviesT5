@@ -126,7 +126,7 @@ export const getAllMovies = async (req, res) => {
             countSql += whereClause;
         }
 
-        // Sorting -prevent sql injection
+        // Sorting prevent sql injection
         const allowedSortFields = ["title", "rating", "duration", "release_year", "created_at"];
         const sortField = allowedSortFields.includes(sort_by) ? `m.${sort_by}` : "m.created_at";
         const sortOrder = (order && order.toUpperCase() === "ASC") ? "ASC" : "DESC";
@@ -137,12 +137,8 @@ export const getAllMovies = async (req, res) => {
         const pageNum = Math.max(1, parseInt(page) || 1);
         const limitNum = Math.max(1, Math.min(100, parseInt(limit) || 10));
         const offset = (pageNum - 1) * limitNum;
-
-        // Get total count for pagination metadata
         const [totalRows] = await pool.query(countSql, params);
         const total = totalRows[0].total;
-
-        // Append pagination directly using sanitized integers
         sql += ` LIMIT ${limitNum} OFFSET ${offset}`;
 
         const [movies] = await pool.query(sql, params);
